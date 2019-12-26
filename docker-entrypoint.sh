@@ -41,6 +41,17 @@ else
 fi
 
 # ----------------------------------------------------------------------------------
+# check server port
+# ----------------------------------------------------------------------------------
+
+if [[ "${APP_SERVER_PORT}" != "" ]]; then
+  echo "[INFO] Environment 'APP_SERVER_PORT' is set."
+  server_port="--server.port=${APP_SERVER_PORT}"
+else
+  server_port=""
+fi
+
+# ----------------------------------------------------------------------------------
 # check java options
 # ----------------------------------------------------------------------------------
 if [[ "${JAVA_OPTS}" != "" ]]; then
@@ -99,5 +110,6 @@ exec java \
   -cp /opt/app.jar \
   -Dloader.path=/opt/lib \
   org.springframework.boot.loader.PropertiesLauncher \
+  "${server_port}" \
   "${JAVA_OPTS}" \
   "$@"

@@ -57,6 +57,9 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11
 * spring active profile: 默认为`default`，如果需要设置，以下两者任意设定一种即可。
   * `APP_PROFILES`
   * `SPRING_PROFILES_ACTIVE`
+  
+* 端口: 如果需要强制覆盖应用程序指定的端口可以使用如下环境变量
+  * `APP_SERVER_PORT`
 
 ### 其他信息
 
