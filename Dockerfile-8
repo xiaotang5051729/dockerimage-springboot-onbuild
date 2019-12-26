@@ -1,0 +1,36 @@
+FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/java:8
+
+MAINTAINER 应卓 <yingzhor@gmail.com>
+
+WORKDIR /
+
+USER root
+
+COPY ./docker-entrypoint.sh /bin/entrypoint.sh
+
+RUN chmod +x /bin/entrypoint.sh && \
+    mkdir -p /var/data/ && \
+    mkdir -p /var/tmp/ && \
+    mkdir -p /var/log/ && \
+    mkdir -p /opt/lib/ && \
+    mkdir -p /config && \
+    ln -sf /config /opt/config
+
+ENV SPRINGBOOT_LOG_DIR=/var/log \
+    SPRINGBOOT_DATA_DIR=/var/data \
+    SPRINGBOOT_TMP_DIR=/var/tmp \
+    SPRINGBOOT_CONFIG_DIR=/opt/config
+
+VOLUME /var/data \
+       /var/tmp \
+       /var/log \
+       /opt/config \
+       /opt/lib
+
+STOPSIGNAL 15
+
+ONBUILD COPY *.jar /opt/app.jar
+
+ONBUILD COPY .configkeep *.yaml *.yml *.properties *.xml *.toml *.ini *.groovy *.json /opt/config/
+
+CMD ["entrypoint.sh"]
