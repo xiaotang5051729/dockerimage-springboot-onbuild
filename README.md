@@ -27,16 +27,17 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11
 ### 构建时行为
 
 * (1) 通过ONBUILD指令，拷贝可执行Jar文件到 `/opt/app.jar`
-* (2) 通过ONBUILD指令，拷贝上下文`*.yaml` `*.yml` `*.properties` `*.xml` `*.toml` `*.ini` `*.groovy` `*.json`到`/opt/config/`。
+* (2) 通过ONBUILD指令，拷贝上下文`*.yaml` `*.yml` `*.json` `*.properties` `*.xml` `*.toml` `*.ini` `*.groovy` `*.cfg` `*.cnf`到`/opt/config/`。
 
 ### 运行时行为
 
-* (1) 依次检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`bash`和`sh`可供使用。
+* (1) 检查环境变量等。
+* (2) 依次检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`bash`和`sh`可供使用。
    * `/opt/app-init.sh`
    * `/opt/app-init`
    * `/opt/init.sh`
    * `/opt/init`
-* (2) 启动应用程序。
+* (3) 启动应用程序。
 
 ### 预设目录
 

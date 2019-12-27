@@ -5,7 +5,6 @@ set -e
 # ----------------------------------------------------------------------------------
 # check spring-boot active profiles
 # ----------------------------------------------------------------------------------
-
 profiles="${APP_PROFILES}"
 
 if [[ "${profiles}" == "" ]]; then
@@ -24,7 +23,6 @@ fi
 # ----------------------------------------------------------------------------------
 # check timezone, if not set. default to UTC
 # ----------------------------------------------------------------------------------
-
 tz="${APP_TIMEZONE}"
 
 if [[ "$tz" == "APP_TZ" ]]; then
@@ -43,9 +41,8 @@ fi
 # ----------------------------------------------------------------------------------
 # check server port
 # ----------------------------------------------------------------------------------
-
 if [[ "${APP_SERVER_PORT}" != "" ]]; then
-  echo "[INFO] Environment 'APP_SERVER_PORT' is set."
+  echo "[WARN] Environment 'APP_SERVER_PORT' is set."
   server_port="--server.port=${APP_SERVER_PORT}"
 else
   server_port=""
@@ -93,6 +90,7 @@ env | sed -n '/^APP_/p' | sort | xargs -I % echo "    %"
 
 # ----------------------------------------------------------------------------------
 # wait for other containers. (optional)
+#   see: https://github.com/yingzhuo/docktool
 # ----------------------------------------------------------------------------------
 if [[ "${APP_DOCKTOOL_WAIT_TIMEOUT}" == "" ]]; then
   docktool -q wait -e="APP_DOCKTOOL_WAIT_"
@@ -103,6 +101,8 @@ fi
 # ----------------------------------------------------------------------------------
 # startup the app
 # ----------------------------------------------------------------------------------
+echo "--------------------"
+
 exec java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone="${APP_TIMEZONE}" \

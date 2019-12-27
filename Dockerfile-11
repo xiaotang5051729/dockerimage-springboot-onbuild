@@ -19,6 +19,7 @@ RUN chmod +x /bin/entrypoint.sh && \
 ENV SPRINGBOOT_LOG_DIR=/var/log \
     SPRINGBOOT_DATA_DIR=/var/data \
     SPRINGBOOT_TMP_DIR=/var/tmp \
+    SPRINGBOOT_LIB_DIR=/opt/lib \
     SPRINGBOOT_CONFIG_DIR=/opt/config
 
 VOLUME /var/data \
@@ -31,6 +32,6 @@ STOPSIGNAL 15
 
 ONBUILD COPY *.jar /opt/app.jar
 
-ONBUILD COPY .configkeep *.yaml *.yml *.properties *.xml *.toml *.ini *.groovy *.json /opt/config/
+ONBUILD COPY .configkeep *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /opt/config/
 
 CMD ["entrypoint.sh"]
