@@ -20,6 +20,7 @@
 ```
 
 你的Dockerfile，最少只需要一行即可。
+
 ```Dockerfile
 FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11
 ```

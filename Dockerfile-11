@@ -16,6 +16,8 @@ RUN chmod +x /bin/entrypoint.sh && \
     mkdir -p /config && \
     ln -sf /config /opt/config
 
+COPY ./lib/dockerimage-springboot-onbuild-0.0.1.jar /opt/lib/dockerimage-springboot-onbuild-0.0.1.jar
+
 ENV SPRINGBOOT_LOG_DIR=/var/log \
     SPRINGBOOT_DATA_DIR=/var/data \
     SPRINGBOOT_TMP_DIR=/var/tmp \
