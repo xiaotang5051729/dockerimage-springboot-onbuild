@@ -20,7 +20,8 @@ ENV SPRINGBOOT_LOG_DIR=/var/log \
     SPRINGBOOT_DATA_DIR=/var/data \
     SPRINGBOOT_TMP_DIR=/var/tmp \
     SPRINGBOOT_LIB_DIR=/opt/lib \
-    SPRINGBOOT_CONFIG_DIR=/opt/config
+    SPRINGBOOT_CONFIG_DIR=/opt/config \
+    APP_DEBUG=false
 
 VOLUME /var/data \
        /var/tmp \
