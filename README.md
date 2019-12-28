@@ -13,12 +13,12 @@
 
 ```
 <context>
-├── .configkeep		<- 空文件，占位用，如果你没有其他配置文件，此文件必要
+├── .configkeep			<- 空文件，占位用，如果你没有其他配置文件，此文件必要
 ├── .dockerignore		<- .dockerignore 可选
-├── Dockerfile		<- 您的Dockerfile文件
-├── executable-app.jar   <- 可执行jar文件
-├── my-config.xml          <- 其他配置文件 可选
-└── my-config.properties     <- 其他配置文件 可选
+├── Dockerfile			<- 您的Dockerfile文件
+├── executable-app.jar		<- 可执行jar文件
+├── my-config.xml		<- 其他配置文件 可选
+└── my-config.properties	<- 其他配置文件 可选
 ```
 
 你的Dockerfile，最少只需要一行即可。
