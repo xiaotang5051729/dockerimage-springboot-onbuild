@@ -51,7 +51,6 @@ fi
 # check server port
 # ----------------------------------------------------------------------------------
 if [[ "${APP_SERVER_PORT}" != "" ]]; then
-  echo "[WARN] Environment 'APP_SERVER_PORT' is set."
   server_port="--server.port=${APP_SERVER_PORT}"
 else
   server_port=""
