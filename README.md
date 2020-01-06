@@ -34,7 +34,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 ### 构建时行为
 
 * (1) 通过ONBUILD指令，拷贝可执行Jar文件到 `/opt/app.jar`。您的构建上下文必需**有且只有一个**可执行jar文件！
-* (2) 通过ONBUILD指令，拷贝上下文`*.yaml` `*.yml` `*.json` `*.properties` `*.xml` `*.toml` `*.ini` `*.groovy` `*.cfg` `*.cnf`到`/opt/config/`。
+* (2) 通过ONBUILD指令，拷贝上下文`*.conf` `*.yaml` `*.yml` `*.json` `*.properties` `*.xml` `*.toml` `*.ini` `*.groovy` `*.cfg` `*.cnf`到`/opt/config/`。
 
 ### 运行时行为
 

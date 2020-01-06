@@ -33,6 +33,6 @@ STOPSIGNAL 15
 
 ONBUILD COPY *.jar /opt/app.jar
 
-ONBUILD COPY .configkeep *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /opt/config/
+ONBUILD COPY .configkeep *.conf *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /opt/config/
 
 CMD ["entrypoint.sh"]
