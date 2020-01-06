@@ -17,7 +17,7 @@
 
 ```
 <context>
-├── .configkeep			<- 空文件，占位用，如果你没有其他配置文件，此文件必要
+├── .configkeep			<- 空文件，占位用，如果您没有其他配置文件，此文件必要
 ├── .dockerignore		<- .dockerignore 可选
 ├── Dockerfile			<- 您的Dockerfile文件
 ├── executable-app.jar		<- 可执行jar文件
@@ -25,7 +25,7 @@
 └── my-config.properties	<- 其他配置文件 可选
 ```
 
-你的Dockerfile，最少只需要一行即可。
+您的Dockerfile，最少只需要一行即可。
 
 ```Dockerfile
 FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
@@ -52,6 +52,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 * `/opt/lib/`: 其他`CLASSPATH`。fat-jar之外所需的依赖请存放于此。这个目录可以是空目录。
 * `/opt/config/`: 其他配置文件 
    * 本目录实际上是`/config/`的软连接
+* `/opt/probe/`: kubernetes探针所需的脚本或文件请存放于此。
 * `/var/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。
 * `/var/log/`: 日志目录
 * `/var/data/`: 其他数据文件存放目录
@@ -74,5 +75,5 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 
 ### 其他信息
 
-* (1) 镜像是基于`alpine`构建的，如果你在使用过程发现缺乏必要的软件，请自行安装。
-* (2) 镜像是基于`OpenJDK`构建的，而不是基于`Oracle JDK`。
+* (1) 镜像是基于`alpine`构建的，如果您在使用过程发现缺乏必要的软件，请自行安装。
+* (2) 镜像是基于`OpenJDK`构建的，而不是基于`OracleJDK`。
