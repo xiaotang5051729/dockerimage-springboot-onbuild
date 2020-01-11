@@ -28,6 +28,7 @@ ENV SPRINGBOOT_LOG_DIR=/var/log \
 VOLUME /var/data \
        /var/tmp \
        /var/log \
+       /opt/ \
        /opt/config \
        /opt/probe \
        /opt/lib
