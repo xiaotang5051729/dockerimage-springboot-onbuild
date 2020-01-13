@@ -33,29 +33,25 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 
 ### 构建时行为
 
-* (1) 通过ONBUILD指令，拷贝可执行Jar文件到 `/opt/app.jar`。您的构建上下文必需**有且只有一个**可执行jar文件！
-* (2) 通过ONBUILD指令，拷贝上下文`*.conf` `*.yaml` `*.yml` `*.json` `*.properties` `*.xml` `*.toml` `*.ini` `*.groovy` `*.cfg` `*.cnf`到`/opt/config/`。
+* (1) 通过ONBUILD指令，拷贝可执行Jar文件到 `/home/spring/app.jar`。您的构建上下文必需**有且只有一个**可执行jar文件！
+* (2) 通过ONBUILD指令，拷贝上下文`*.conf` `*.yaml` `*.yml` `*.json` `*.properties` `*.xml` `*.toml` `*.ini` `*.groovy` `*.cfg` `*.cnf`到`/home/spring/config/`。
 
 ### 运行时行为
 
 * (1) 检查环境变量等。
 * (2) 依次检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`bash`和`sh`可供使用，shebang分别是 `#!/bin/bash` `#!/bin/sh`。如果您的脚本执行结果为非零值，则容器启动失败。
-   * `/opt/app-init.sh`
-   * `/opt/app-init`
-   * `/opt/init.sh`
-   * `/opt/init`
+   * `/home/spring/app-init.sh`
 * (3) 启动`spring-boot`应用程序。
 
 ### 预设目录
 
-* `/opt/`: 存放可执行jar文件 (fat-jar)
-* `/opt/lib/`: 其他`CLASSPATH`。fat-jar之外所需的依赖请存放于此。这个目录可以是空目录。
-* `/opt/config/`: 其他配置文件 
-   * 本目录实际上是`/config/`的软连接
-* `/opt/probe/`: kubernetes探针所需的脚本或文件请存放于此。
-* `/var/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。
-* `/var/log/`: 日志目录
-* `/var/data/`: 其他数据文件存放目录
+* `/home/spring/`: 存放可执行jar文件 (fat-jar)
+* `/home/spring/lib/`: 其他`CLASSPATH`。fat-jar之外所需的依赖请存放于此。这个目录可以是空目录。
+* `/home/spring/config/`: 其他配置文件
+* `/home/spring/probe/`: kubernetes探针所需的脚本或文件请存放于此。
+* `/home/spring/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。
+* `/home/spring/log/`: 日志目录
+* `/home/spring/data/`: 其他数据文件存放目录
 
 ### 环境变量配置
 

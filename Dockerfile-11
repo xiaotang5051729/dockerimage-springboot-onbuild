@@ -2,41 +2,39 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/java:11
 
 MAINTAINER 应卓 <yingzhor@gmail.com>
 
-WORKDIR /
+RUN addgroup -S spring && adduser -S spring -G spring
 
-USER root
+COPY --chown=spring:spring ./docker-entrypoint.sh /home/spring/entrypoint.sh
 
-COPY ./docker-entrypoint.sh /bin/entrypoint.sh
+RUN chmod +x /home/spring/entrypoint.sh && \
+    mkdir -p /home/spring/data/ && \
+    mkdir -p /home/spring/tmp/ && \
+    mkdir -p /home/spring/log/ && \
+    mkdir -p /home/spring/lib/ && \
+    mkdir -p /home/spring/probe/ && \
+    mkdir -p /home/spring/config && \
+    chown -R spring:spring /home/spring
 
-RUN chmod +x /bin/entrypoint.sh && \
-    mkdir -p /var/data/ && \
-    mkdir -p /var/tmp/ && \
-    mkdir -p /var/log/ && \
-    mkdir -p /opt/lib/ && \
-    mkdir -p /opt/probe/ && \
-    mkdir -p /config && \
-    ln -sf /config /opt/config
-
-ENV SPRINGBOOT_LOG_DIR=/var/log \
-    SPRINGBOOT_DATA_DIR=/var/data \
-    SPRINGBOOT_TMP_DIR=/var/tmp \
-    SPRINGBOOT_LIB_DIR=/opt/lib \
-    SPRINGBOOT_PROBE_DIR=/opt/probe \
-    SPRINGBOOT_CONFIG_DIR=/opt/config \
+ENV SPRINGBOOT_HOME=/home/spring \
+    SPRINGBOOT_LOG_DIR=/home/spring/log \
+    SPRINGBOOT_DATA_DIR=/home/spring/data \
+    SPRINGBOOT_TMP_DIR=/home/spring/tmp \
+    SPRINGBOOT_LIB_DIR=/home/spring/lib \
+    SPRINGBOOT_PROBE_DIR=/home/spring/probe \
+    SPRINGBOOT_CONFIG_DIR=/home/spring/config \
+    PATH=$PATH:${SPRINGBOOT_HOME} \
     APP_DEBUG=false
 
-VOLUME /var/data \
-       /var/tmp \
-       /var/log \
-       /opt/ \
-       /opt/config \
-       /opt/probe \
-       /opt/lib
+VOLUME /home/spring
 
 STOPSIGNAL 15
 
-ONBUILD COPY *.jar /opt/app.jar
+ONBUILD COPY --chown=spring:spring *.jar /home/spring/app.jar
 
-ONBUILD COPY .configkeep *.conf *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /opt/config/
+ONBUILD COPY --chown=spring:spring .configkeep *.conf *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /home/spring/config/
+
+WORKDIR /home/spring
+
+USER spring
 
 CMD ["entrypoint.sh"]

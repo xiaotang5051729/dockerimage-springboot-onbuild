@@ -65,29 +65,11 @@ fi
 
 # ----------------------------------------------------------------------------------
 # call shells if the shell exists and execute permission is granted.
-#  - /opt/app-init.sh
-#  - /opt/app-init
-#  - /opt/init.sh
-#  - /opt/init
+#  - /home/spring/app-init.sh
 # ----------------------------------------------------------------------------------
-if [[ -x "/opt/app-init.sh" ]]; then
-  echo "[INFO] init shell: /opt/app-init.sh"
-  /opt/app-init.sh
-fi
-
-if [[ -x "/opt/app-init" ]]; then
-  echo "[INFO] init shell: /opt/app-init"
-  /opt/app-init
-fi
-
-if [[ -x "/opt/init.sh" ]]; then
-  echo "[INFO] init shell: /opt/init.sh"
-  /opt/init.sh
-fi
-
-if [[ -x "/opt/init" ]]; then
-  echo "[INFO] init shell: /opt/init"
-  /opt/init
+if [[ -x "/home/spring/app-init.sh" ]]; then
+  echo "[INFO] init shell: /home/spring/app-init.sh"
+  /home/spring/app-init.sh
 fi
 
 # ----------------------------------------------------------------------------------
@@ -112,9 +94,9 @@ fi
 exec java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone="${APP_TIMEZONE}" \
-  -Djava.io.tmpdir=/var/tmp \
-  -cp /opt/app.jar \
-  -Dloader.path=/opt/lib \
+  -Djava.io.tmpdir=/home/spring/tmp \
+  -cp /home/spring/app.jar \
+  -Dloader.path=/home/spring/lib \
   org.springframework.boot.loader.PropertiesLauncher \
   "${debug_mode}" \
   "${server_port}" \
