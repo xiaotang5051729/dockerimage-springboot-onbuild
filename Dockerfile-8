@@ -4,9 +4,9 @@ MAINTAINER 应卓 <yingzhor@gmail.com>
 
 RUN addgroup -S spring && adduser -S spring -G spring
 
-COPY --chown=spring:spring ./docker-entrypoint.sh /home/spring/entrypoint.sh
+COPY --chown=spring:spring ./docker-entrypoint.sh /bin/entrypoint.sh
 
-RUN chmod +x /home/spring/entrypoint.sh && \
+RUN chmod a+x /bin/entrypoint.sh && \
     mkdir -p /home/spring/data/ && \
     mkdir -p /home/spring/tmp/ && \
     mkdir -p /home/spring/log/ && \
@@ -15,17 +15,14 @@ RUN chmod +x /home/spring/entrypoint.sh && \
     mkdir -p /home/spring/config && \
     chown -R spring:spring /home/spring
 
-ENV SPRINGBOOT_HOME=/home/spring \
-    SPRINGBOOT_LOG_DIR=/home/spring/log \
-    SPRINGBOOT_DATA_DIR=/home/spring/data \
-    SPRINGBOOT_TMP_DIR=/home/spring/tmp \
-    SPRINGBOOT_LIB_DIR=/home/spring/lib \
-    SPRINGBOOT_PROBE_DIR=/home/spring/probe \
-    SPRINGBOOT_CONFIG_DIR=/home/spring/config \
-    PATH=$PATH:${SPRINGBOOT_HOME} \
-    APP_DEBUG=false
+ENV APP_DEBUG=false
 
-VOLUME /home/spring
+VOLUME /home/spring/data \
+       /home/spring/tmp \
+       /home/spring/log \
+       /home/spring/lib \
+       /home/spring/probe \
+       /home/spring/config
 
 STOPSIGNAL 15
 
