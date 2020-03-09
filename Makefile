@@ -13,6 +13,7 @@ release:
 	@docker image build -f $(CURDIR)/Dockerfile-8 -t registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8 .
 	@docker image build -f $(CURDIR)/Dockerfile-11 -t registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11 .
 	@docker login --username=yingzhor@gmail.com --password="${ALIYUN_PASSWORD}" registry.cn-shanghai.aliyuncs.com &> /dev/null
+	@docker image push registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:7
 	@docker image push registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 	@docker image push registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11
 	@docker logout registry.cn-shanghai.aliyuncs.com &> /dev/null
