@@ -56,13 +56,13 @@ spring  | spring
 
 ### 预设目录
 
-* `/home/spring/`: 存放可执行jar文件 (fat-jar)
-* `/home/spring/lib/`: 其他`CLASSPATH`。fat-jar之外所需的依赖请存放于此。这个目录可以是空目录。
-* `/home/spring/config/`: 其他配置文件
-* `/home/spring/probe/`: kubernetes探针所需的脚本或文件请存放于此。
-* `/home/spring/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。
-* `/home/spring/log/`: 日志目录
-* `/home/spring/data/`: 其他数据文件存放目录
+* `/home/spring/`: 存放可执行jar文件 (fat-jar)。
+* `/home/spring/lib/`: 其他`CLASSPATH`。fat-jar之外所需的依赖请存放于此。这个目录可以为空。
+* `/home/spring/config/`: 其他配置文件。这个目录可以为空。
+* `/home/spring/probe/`: kubernetes探针所需的脚本或文件请存放于此。这个目录可以为空。
+* `/home/spring/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。这个目录可以为空。
+* `/home/spring/log/`: 日志目录。这个目录可以为空。
+* `/home/spring/data/`: 其他数据文件存放目录。这个目录可以为空。
 
 ### 环境变量配置
 
@@ -84,3 +84,39 @@ spring  | spring
 
 * (1) 镜像是基于`alpine`构建的，如果您在使用过程发现缺乏必要的软件，请自行安装。
 * (2) 镜像是基于`OpenJDK`构建的，而不是基于`OracleJDK`。
+
+### 关于Maven项目技巧
+
+推荐使用`Ant`插件，通过该插件可将所需的所有文件拷贝到同一个目录。
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>1.8</version>
+    <executions>
+        <execution>
+            <id>pkg</id>
+            <phase>package</phase>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            <configuration>
+                <target>
+                    <copy todir="${project.basedir}/target/docker-context/" force="true">
+                        <fileset dir="${project.basedir}/src/main/docker">
+                            <include name="**/*"/>
+                        </fileset>
+                    </copy>
+                    <move todir="${project.basedir}/target/docker-context/" force="true">
+                        <fileset dir="${project.basedir}/target/">
+                            <include name="*.jar"/>
+                        </fileset>
+                    </move>
+                    <touch file="${project.basedir}/target/docker-context/.configkeep"/>
+                </target>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
