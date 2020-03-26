@@ -87,7 +87,7 @@ spring  | spring
 
 ### 关于Maven项目技巧
 
-推荐使用`Ant`插件，通过该插件可将所需的所有文件拷贝到同一个目录。
+推荐使用`Ant`插件，通过该插件可将所需的所有文件拷贝到同一个目录。`${project.basedir}/target/docker-context/`
 
 ```xml
 <plugin>
@@ -107,12 +107,13 @@ spring  | spring
                         <fileset dir="${project.basedir}/src/main/docker">
                             <include name="**/*"/>
                         </fileset>
-                    </copy>
-                    <move todir="${project.basedir}/target/docker-context/" force="true">
                         <fileset dir="${project.basedir}/target/">
-                            <include name="*.jar"/>
+                            <include name="**/*.jar"/>
                         </fileset>
-                    </move>
+                    </copy>
+                    <delete>
+                        <fileset dir="${project.basedir}/target/" includes="*.jar*"/>
+                    </delete>
                     <touch file="${project.basedir}/target/docker-context/.configkeep"/>
                 </target>
             </configuration>

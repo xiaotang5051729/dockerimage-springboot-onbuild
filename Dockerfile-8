@@ -33,6 +33,6 @@ ONBUILD COPY --chown=spring:spring .configkeep *.conf *.yaml *.yml *.json *.prop
 
 WORKDIR /home/spring
 
-USER spring
+USER spring:spring
 
 ENTRYPOINT ["entrypoint.sh"]
