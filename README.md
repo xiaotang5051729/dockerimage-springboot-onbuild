@@ -4,9 +4,6 @@
 
 如果您开发了一个基于`spring-boot`的`Java`应用程序，欢迎使用本项目作为您的基础镜像。
 
- * JDK-7:  
-    * `yingzhuo/springboot:7`
-    * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:7`
  * JDK-8:  
     * `yingzhuo/springboot:8`
     * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8`
@@ -50,7 +47,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 
 默认属主 | 默认属组 |
 --------|---------|
-spring  | spring  
+spring  | spring  |
 
 > **注意**: 如果因为某些特别的需要，您可以在Dockerfile中指定使用root用户运行springboot程序。`USER root`
 
