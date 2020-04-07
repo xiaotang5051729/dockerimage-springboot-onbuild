@@ -15,7 +15,7 @@ RUN chmod a+x /bin/entrypoint.sh && \
     mkdir -p /home/spring/config/ && \
     chown -R spring:spring /home/spring/ && \
     rm -rf /var/log && \
-    mkdir -p /home/spring/log/ /var/log && \
+    ln -sf /home/spring/log/ /var/log && \
     chown spring:spring /var/log
 
 ENV APP_DEBUG=false

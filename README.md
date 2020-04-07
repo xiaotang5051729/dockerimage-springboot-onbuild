@@ -59,6 +59,7 @@ spring  | spring  |
 * `/home/spring/probe/`: kubernetes探针所需的脚本或文件请存放于此。这个目录可以为空。
 * `/home/spring/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。这个目录可以为空。
 * `/home/spring/log/`: 日志目录。这个目录可以为空。
+  * `/var/log/`是这个目录的软连接。
 * `/home/spring/data/`: 其他数据文件存放目录。这个目录可以为空。
 
 ### 环境变量配置
