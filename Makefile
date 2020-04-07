@@ -1,4 +1,4 @@
-timestamp	:= $(shell /bin/date "+%F %T")
+timestamp := $(shell /bin/date "+%F %T")
 
 no_default:
 	@echo "no defualt target"
@@ -38,4 +38,4 @@ release-java-11:
 
 release-all: release-java-8 release-java-11
 
-.PHONY: no_default github release-java-8 release-java-11
+.PHONY: no_default github release-java-8 release-java-11 release-all

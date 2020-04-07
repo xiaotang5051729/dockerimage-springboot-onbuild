@@ -2,8 +2,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/java:11
 
 LABEL MAINTAINER="应卓 <yingzhor@gmail.com>"
 
-RUN addgroup -S spring && \
-    adduser -S spring -G spring
+RUN addgroup -S spring && adduser -S spring -G spring
 
 COPY --chown=spring:spring ./docker-entrypoint.sh /bin/entrypoint.sh
 
@@ -13,8 +12,11 @@ RUN chmod a+x /bin/entrypoint.sh && \
     mkdir -p /home/spring/log/ && \
     mkdir -p /home/spring/lib/ && \
     mkdir -p /home/spring/probe/ && \
-    mkdir -p /home/spring/config && \
-    chown -R spring:spring /home/spring
+    mkdir -p /home/spring/config/ && \
+    chown -R spring:spring /home/spring/ && \
+    rm -rf /var/log && \
+    mkdir -p /home/spring/log/ /var/log && \
+    chown spring:spring /var/log
 
 ENV APP_DEBUG=false
 

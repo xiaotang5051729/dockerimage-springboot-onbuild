@@ -39,7 +39,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 ### 运行时行为
 
 * (1) 检查环境变量等。
-* (2) 依次检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`bash`和`sh`可供使用，shebang分别是 `#!/bin/bash` `#!/bin/sh`。如果您的脚本执行结果为非零值，则容器启动失败。
+* (2) 依次检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`bash`和`sh`可供使用，shebang分别是 `#!/bin/bash` 和 `#!/bin/sh`。如果您的脚本执行结果为非零值，则容器启动失败。
    * `/home/spring/app-init.sh`
 * (3) 启动`spring-boot`应用程序。
 
