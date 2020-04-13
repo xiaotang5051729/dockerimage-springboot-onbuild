@@ -21,7 +21,6 @@ if [[ "${profiles}" == "" ]]; then
 fi
 
 if [[ "${profiles}" == "" ]]; then
-  echo "[WARN] Environment 'APP_PROFILES' or 'SPRING_PROFILES_ACTIVE' is NOT set. Default to 'default'."
   export APP_PROFILES='default'
   export SPRING_PROFILES_ACTIVE='default'
 else
@@ -39,7 +38,6 @@ if [[ "$tz" == "" ]]; then
 fi
 
 if [[ "${tz}" == "" ]]; then
-  echo "[WARN] Environment 'APP_TIMEZONE' or 'APP_TZ' is NOT set. Default to 'UTC'."
   export APP_TIMEZONE=UTC
   export APP_TZ=UTC
 else
@@ -48,35 +46,12 @@ else
 fi
 
 # ----------------------------------------------------------------------------------
-# check server port
-# ----------------------------------------------------------------------------------
-if [[ "${APP_SERVER_PORT}" != "" ]]; then
-  server_port="--server.port=${APP_SERVER_PORT}"
-else
-  server_port=""
-fi
-
-# ----------------------------------------------------------------------------------
-# check java options
-# ----------------------------------------------------------------------------------
-if [[ "${JAVA_OPTS}" != "" ]]; then
-  echo "[INFO] Environment 'JAVA_OPTS' set. Value is = ${JAVA_OPTS}"
-fi
-
-# ----------------------------------------------------------------------------------
-# call shells if the shell exists and execute permission is granted.
+# call shell if the shell exists and execute permission is granted.
 #  - /home/spring/app-init.sh
 # ----------------------------------------------------------------------------------
 if [[ -x "/home/spring/app-init.sh" ]]; then
-  echo "[INFO] init shell: /home/spring/app-init.sh"
   /home/spring/app-init.sh
 fi
-
-# ----------------------------------------------------------------------------------
-# show environment which start with 'APP_'
-# ----------------------------------------------------------------------------------
-echo "[INFO] Application environments:"
-env | sed -n '/^APP_/p' | sort | xargs -I % echo "    %"
 
 # ----------------------------------------------------------------------------------
 # wait for other containers. (optional)
@@ -99,6 +74,5 @@ exec java \
   -Dloader.path=/home/spring/lib \
   org.springframework.boot.loader.PropertiesLauncher \
   "${debug_mode}" \
-  "${server_port}" \
   "${JAVA_OPTS}" \
   "$@"

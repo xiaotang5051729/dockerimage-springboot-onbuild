@@ -2,11 +2,12 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/java:8
 
 LABEL MAINTAINER="应卓 <yingzhor@gmail.com>"
 
-RUN addgroup -S spring && adduser -S spring -G spring
+COPY ./docker-entrypoint.sh /bin/entrypoint
 
-COPY --chown=spring:spring ./docker-entrypoint.sh /bin/entrypoint.sh
-
-RUN chmod a+x /bin/entrypoint.sh && \
+RUN addgroup -S spring && \
+    adduser -S spring -G spring && \
+    chown spring:spring /bin/entrypoint && \
+    chmod a+x /bin/entrypoint && \
     mkdir -p /home/spring/data/ && \
     mkdir -p /home/spring/tmp/ && \
     mkdir -p /home/spring/log/ && \
@@ -37,4 +38,4 @@ WORKDIR /home/spring
 
 USER spring:spring
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["entrypoint"]

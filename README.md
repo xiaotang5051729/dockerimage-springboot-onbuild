@@ -5,11 +5,11 @@
 如果您开发了一个基于`spring-boot`的`Java`应用程序，欢迎使用本项目作为您的基础镜像。
 
  * JDK-8:  
-    * `yingzhuo/springboot:8`
-    * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8`
+    * 官方: `yingzhuo/springboot:8`
+    * 阿里云: `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8`
  * JDK-11: 
-    * `yingzhuo/springboot:11` 
-    * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11`
+    * 官方: `yingzhuo/springboot:11` 
+    * 阿里云: `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11`
 
 ### 使用
 
@@ -33,15 +33,15 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 
 ### 构建时行为
 
-* (1) 通过ONBUILD指令，拷贝可执行Jar文件到 `/home/spring/app.jar`。您的构建上下文必需**有且只有一个**可执行jar文件！
+* (1) 通过ONBUILD指令，拷贝可执行Jar文件到 `/home/spring/app.jar`。您必须保证构建上下文必需**有且只有一个**可执行jar文件！
 * (2) 通过ONBUILD指令，拷贝上下文`*.conf` `*.yaml` `*.yml` `*.json` `*.properties` `*.xml` `*.toml` `*.ini` `*.groovy` `*.cfg` `*.cnf`到`/home/spring/config/`。
 
 ### 运行时行为
 
 * (1) 检查环境变量等。
-* (2) 依次检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`bash`和`sh`可供使用，shebang分别是 `#!/bin/bash` 和 `#!/bin/sh`。如果您的脚本执行结果为非零值，则容器启动失败。
+* (2) 检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`/bin/bash`和`/bin/sh`可供使用。如果您的脚本执行结果为非零值，则容器启动失败。
    * `/home/spring/app-init.sh`
-* (3) 启动`spring-boot`应用程序。
+* (3) 启动应用程序。
 
 ### 属主与属组
 
@@ -49,7 +49,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 --------|---------|
 spring  | spring  |
 
-> **注意**: 如果因为某些特别的需要，您可以在Dockerfile中指定使用root用户运行springboot程序。`USER root`
+> **注意**: 如果因为某些特别的需要，您可以在Dockerfile中指定使用root用户运行springboot程序。`USER root:root`
 
 ### 预设目录
 
@@ -64,7 +64,7 @@ spring  | spring  |
 
 ### 环境变量配置
 
-* debug模式: 如果为true，则开启 `java -jar app.jar --debug`。默认为关闭。
+* debug模式: 如果为true，则开启 `java -jar /home/spring/app.jar --debug`。默认为关闭。
   * `APP_DEBUG`
 
 * 时区: 默认为`UTC`，如果需要设置，以下两者任意设定一种即可。
@@ -75,15 +75,14 @@ spring  | spring  |
   * `APP_PROFILES`
   * `SPRING_PROFILES_ACTIVE`
 
-* 端口: 如果需要强制覆盖应用程序指定的端口可以使用如下环境变量
-  * `APP_SERVER_PORT`
-
 ### 其他信息
 
 * (1) 镜像是基于`alpine`构建的，如果您在使用过程发现缺乏必要的软件，请自行安装。
 * (2) 镜像是基于`OpenJDK`构建的，而不是基于`OracleJDK`。
 
-### 关于Maven项目技巧
+### 附录
+
+##### (1) 关于Maven项目技巧
 
 推荐使用`Ant`插件，通过该插件可将所需的所有文件拷贝到同一个目录。`${project.basedir}/target/docker-context/`
 
