@@ -17,7 +17,7 @@
 
 ```
 <context>
-├── .configkeep			<- 空文件，占位用，如果您没有其他配置文件，此文件必要
+├── .configkeep			<- 空文件，占位用，此文件必要
 ├── .dockerignore		<- .dockerignore 可选
 ├── Dockerfile			<- 您的Dockerfile文件
 ├── executable-app.jar		<- 可执行jar文件
