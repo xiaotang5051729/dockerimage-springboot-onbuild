@@ -46,6 +46,22 @@ else
 fi
 
 # ----------------------------------------------------------------------------------
+# check language. default to english
+# ----------------------------------------------------------------------------------
+lang="${APP_LANG}"
+if [[ "$lang" == "" ]]; then
+  lang="en"
+fi
+
+# ----------------------------------------------------------------------------------
+# check country. default to english
+# ----------------------------------------------------------------------------------
+country="${APP_COUNTRY}"
+if [[ "$country" == "" ]]; then
+  country="US"
+fi
+
+# ----------------------------------------------------------------------------------
 # call shell if the shell exists and execute permission is granted.
 #  - /home/spring/app-init.sh
 # ----------------------------------------------------------------------------------
@@ -69,6 +85,8 @@ fi
 exec java \
   -Djava.security.egd=file:/dev/./urandom \
   -Duser.timezone="${APP_TIMEZONE}" \
+  -Duser.language="${lang}" \
+  -Duser.country="${country}" \
   -Djava.io.tmpdir=/home/spring/tmp \
   -cp /home/spring/app.jar \
   -Dloader.path=/home/spring/lib \

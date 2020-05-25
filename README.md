@@ -67,9 +67,15 @@ spring  | spring  |
 * debug模式: 如果为true，则开启 `java -jar /home/spring/app.jar --debug`。默认为关闭。
   * `APP_DEBUG`
 
-* 时区: 默认为`UTC`，如果需要设置，以下两者任意设定一种即可。
+* 时区: 默认为`UTC`，如果需要设置，以下两者任意的环境变量设定一种即可。
   * `APP_TIMEZONE` 
   * `APP_TZ`
+  
+* 语言: 默认为`en`，如果需要设置，可通过环境变量设置。
+  * `APP_LANG` 
+
+* 国家: 默认为`US`，如果需要设置，可通过环境变量设置。
+  * `APP_COUNTRY` 
 
 * spring active profile: 默认为`default`，如果需要设置，以下两者任意设定一种即可。
   * `APP_PROFILES`
