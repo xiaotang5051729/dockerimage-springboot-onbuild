@@ -5,11 +5,11 @@
 如果您开发了一个基于`spring-boot`的`Java`应用程序，欢迎使用本项目作为您的基础镜像。
 
  * JDK-8:  
-    * 官方: `yingzhuo/springboot:8`
-    * 阿里云: `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8`
+    * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8`
+    * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8-china`
  * JDK-11: 
-    * 官方: `yingzhuo/springboot:11` 
-    * 阿里云: `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11`
+    * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11`
+    * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11-china`
 
 ### 使用
 
