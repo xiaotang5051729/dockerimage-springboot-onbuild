@@ -4,10 +4,10 @@
 
 如果您开发了一个基于`spring-boot`的`Java`应用程序，欢迎使用本项目作为您的基础镜像。
 
- * JDK-8:  
+ * JDK-8: 
     * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8`
     * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8-china`
- * JDK-11: 
+ * JDK-11:
     * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11`
     * `registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:11-china`
 
@@ -39,8 +39,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 ### 运行时行为
 
 * (1) 检查环境变量等。
-* (2) 检查如下文件是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`/bin/bash`和`/bin/sh`可供使用。如果您的脚本执行结果为非零值，则容器启动失败。
-   * `/home/spring/app-init.sh`
+* (2) 检查文件`/home/spring/app-init.sh`是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`/bin/bash`、`/bin/sh`、`/usr/bin/lua`可供使用。如果您的脚本执行结果为非零值，则容器启动失败。
 * (3) 启动应用程序。
 
 ### 属主与属组
