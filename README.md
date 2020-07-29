@@ -39,8 +39,7 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 ### 运行时行为
 
 * (1) 检查环境变量等。
-* (2) 检查文件`/home/spring/app-init.sh`是否存在并可以执行，如果存在并可执行，则执行脚本。基础镜像已经预装了`/bin/bash`、`/bin/sh`、`/usr/bin/lua`可供使用。如果您的脚本执行结果为非零值，则容器启动失败。
-* (3) 启动应用程序。
+* (2) 启动应用程序。
 
 ### 属主与属组
 
@@ -48,22 +47,20 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 --------|---------|
 root    | root    |
 
-> **注意**: 如果因为某些特别的需要，您可以在Dockerfile中指定使用spring用户运行springboot程序。`USER spring:spring`
-
 ### 预设目录
 
-* `/home/spring/`: 存放可执行jar文件 (fat-jar)。
-* `/home/spring/lib/`: 其他`CLASSPATH`。fat-jar之外所需的依赖请存放于此。这个目录可以为空。
-* `/home/spring/config/`: 其他配置文件。这个目录可以为空。
-* `/home/spring/probe/`: kubernetes探针所需的脚本或文件请存放于此。这个目录可以为空。
-* `/home/spring/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。这个目录可以为空。
-* `/home/spring/log/`: 日志目录。这个目录可以为空。
+* `/opt/`: 存放可执行jar文件 (fat-jar)。
+* `/opt/lib/`: 其他`CLASSPATH`。fat-jar之外所需的依赖请存放于此。这个目录可以为空。
+* `/opt/config/`: 其他配置文件。这个目录可以为空。
+* `/opt/k8s-probe/`: kubernetes探针所需的脚本或文件请存放于此。这个目录可以为空。
+* `/opt/tmp/`: 临时目录。本项目并不使用`/tmp/`作为临时目录。这个目录可以为空。
+* `/opt/log/`: 日志目录。这个目录可以为空。
   * `/var/log/`是这个目录的软连接。
-* `/home/spring/data/`: 其他数据文件存放目录。这个目录可以为空。
+* `/opt/data/`: 其他数据文件存放目录。这个目录可以为空。
 
 ### 环境变量配置
 
-* debug模式: 如果为true，则开启 `java -jar /home/spring/app.jar --debug`。默认为关闭。
+* debug模式: 如果为true，则开启 `java -jar /opt/app.jar --debug`。默认为关闭。
   * `APP_DEBUG`
 
 * 时区: 默认为`UTC`，如果需要设置，以下两者任意的环境变量设定一种即可。

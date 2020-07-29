@@ -62,24 +62,6 @@ if [[ "$country" == "" ]]; then
 fi
 
 # ----------------------------------------------------------------------------------
-# call shell if the shell exists and execute permission is granted.
-#  - /home/spring/app-init.sh
-# ----------------------------------------------------------------------------------
-if [[ -x "/home/spring/app-init.sh" ]]; then
-  /home/spring/app-init.sh
-fi
-
-# ----------------------------------------------------------------------------------
-# wait for other containers. (optional)
-#   see: https://github.com/yingzhuo/docktool
-# ----------------------------------------------------------------------------------
-if [[ "${APP_DOCKTOOL_WAIT_TIMEOUT}" == "" ]]; then
-  docktool -q wait -e="APP_DOCKTOOL_WAIT_"
-else
-  docktool -q wait -e="APP_DOCKTOOL_WAIT_" -t="${APP_DOCKTOOL_WAIT_TIMEOUT}"
-fi
-
-# ----------------------------------------------------------------------------------
 # startup the app
 # ----------------------------------------------------------------------------------
 exec java \
@@ -87,9 +69,9 @@ exec java \
   -Duser.timezone="${APP_TIMEZONE}" \
   -Duser.language="${lang}" \
   -Duser.country="${country}" \
-  -Djava.io.tmpdir=/home/spring/tmp \
-  -cp /home/spring/app.jar \
-  -Dloader.path=/home/spring/lib \
+  -Djava.io.tmpdir=/opt/tmp \
+  -cp /opt/app.jar \
+  -Dloader.path=/opt/lib \
   org.springframework.boot.loader.PropertiesLauncher \
   "${debug_mode}" \
   "${JAVA_OPTS}" \

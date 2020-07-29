@@ -4,41 +4,37 @@ LABEL MAINTAINER="应卓 <yingzhor@gmail.com>"
 
 USER root:root
 
+WORKDIR /opt/
+
 COPY ./docker-entrypoint.sh /bin/entrypoint
 
-RUN addgroup -S spring && \
-    adduser -S spring -G spring && \
-    chown spring:spring /bin/entrypoint && \
-    chmod a+x /bin/entrypoint && \
-    mkdir -p /home/spring/data/ && \
-    mkdir -p /home/spring/tmp/ && \
-    mkdir -p /home/spring/log/ && \
-    mkdir -p /home/spring/lib/ && \
-    mkdir -p /home/spring/probe/ && \
-    mkdir -p /home/spring/config/ && \
-    chown -R spring:spring /home/spring/ && \
+RUN chmod a+x /bin/entrypoint && \
+    mkdir -p /opt/data/ && \
+    mkdir -p /opt/tmp/ && \
+    mkdir -p /opt/log/ && \
+    mkdir -p /opt/lib/ && \
+    mkdir -p /opt/config/ && \
+    mkdir -p /opt/k8s-probe/ && \
+    mkdir -p /opt/k8s-config-map/ && \
     rm -rf /var/log && \
-    ln -sf /home/spring/log/ /var/log && \
-    chown spring:spring /var/log
+    ln -sf /opt/log/ /var/log
 
 ENV APP_DEBUG=false
 
-VOLUME /home/spring/data \
-       /home/spring/tmp \
-       /home/spring/log \
-       /home/spring/lib \
-       /home/spring/probe \
-       /home/spring/config
+VOLUME /opt/ \
+       /opt/data \
+       /opt/tmp \
+       /opt/log \
+       /opt/lib \
+       /opt/config \
+       /opt/k8s-probe \
+       /opt/k8s-config-map
 
 STOPSIGNAL 15
 
-ONBUILD COPY --chown=spring:spring *.jar /home/spring/app.jar
+ONBUILD COPY --chown=root:root *.jar /opt/app.jar
 
-ONBUILD COPY --chown=spring:spring .configkeep *.conf *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /home/spring/config/
-
-WORKDIR /home/spring
-
-USER spring:spring
+ONBUILD COPY --chown=root:root .configkeep *.conf *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /opt/config/
 
 ENTRYPOINT ["entrypoint"]
 
