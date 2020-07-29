@@ -2,6 +2,8 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/java:jre-8
 
 LABEL MAINTAINER="应卓 <yingzhor@gmail.com>"
 
+USER root:root
+
 COPY ./docker-entrypoint.sh /bin/entrypoint
 
 RUN addgroup -S spring && \
@@ -35,7 +37,5 @@ ONBUILD COPY --chown=spring:spring *.jar /home/spring/app.jar
 ONBUILD COPY --chown=spring:spring .configkeep *.conf *.yaml *.yml *.json *.properties *.xml *.toml *.ini *.groovy *.cnf *.cfg /home/spring/config/
 
 WORKDIR /home/spring
-
-USER spring:spring
 
 ENTRYPOINT ["entrypoint"]

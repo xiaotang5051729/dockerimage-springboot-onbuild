@@ -46,9 +46,9 @@ FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/springboot-onbuild:8
 
 默认属主 | 默认属组 |
 --------|---------|
-spring  | spring  |
+root    | root    |
 
-> **注意**: 如果因为某些特别的需要，您可以在Dockerfile中指定使用root用户运行springboot程序。`USER root:root`
+> **注意**: 如果因为某些特别的需要，您可以在Dockerfile中指定使用spring用户运行springboot程序。`USER spring:spring`
 
 ### 预设目录
 
@@ -84,42 +84,3 @@ spring  | spring  |
 
 * (1) 镜像是基于`alpine`构建的，如果您在使用过程发现缺乏必要的软件，请自行安装。
 * (2) 镜像是基于`OpenJDK`构建的，而不是基于`OracleJDK`。
-
-### 附录
-
-##### (1) 关于Maven项目技巧
-
-推荐使用`Ant`插件，通过该插件可将所需的所有文件拷贝到同一个目录。`${project.basedir}/target/docker-context/`
-
-```xml
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-antrun-plugin</artifactId>
-    <version>1.8</version>
-    <executions>
-        <execution>
-            <id>pkg</id>
-            <phase>package</phase>
-            <goals>
-                <goal>run</goal>
-            </goals>
-            <configuration>
-                <target>
-                    <copy todir="${project.basedir}/target/docker-context/" force="true">
-                        <fileset dir="${project.basedir}/src/main/docker">
-                            <include name="**/*"/>
-                        </fileset>
-                        <fileset dir="${project.basedir}/target/">
-                            <include name="**/*.jar"/>
-                        </fileset>
-                    </copy>
-                    <delete>
-                        <fileset dir="${project.basedir}/target/" includes="*.jar*"/>
-                    </delete>
-                    <touch file="${project.basedir}/target/docker-context/.configkeep"/>
-                </target>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-```
