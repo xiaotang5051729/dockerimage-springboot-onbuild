@@ -1,4 +1,7 @@
-# dockerimage-springboot-onbuild
+# ~~dockerimage-springboot-onbuild~~
+
+**本项目已经过时，spring-boot v2.3.0+ 提供了分层镜像功能，强烈推荐。**
+**基于fat-jar的Docker镜像相对笨重。**
 
 > Convention over configuration!
 
